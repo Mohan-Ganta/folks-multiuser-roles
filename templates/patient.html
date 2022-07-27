@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Patient page</title>
-</head>
-<body>
- <h1> Hello {{ user.username }} your role is Patient</h1>
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<header class="masthead">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class=" col-md-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h3 class=" site-heading my-4 mt-3 text-black">  WELCOME TO {{user.username }}✍️ </h3>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="row">
+    <!-- Blog Entries Column -->
+    <div class="col-md-8 mt-3 left">
+      {% for post in post_list %}
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">{{ post.title }}</h2>
+          <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+          <img class="card-img-top" src = "{{ object.image }}">
+          {% comment %} <img src="profile_pics/{{post.image}}" class="card-img-top"> {% endcomment %}
+          <p class="card-text">{{post.content|slice:":200"}}</p>
+          <a href="{% url 'post_detail'  %}" class="btn btn-primary">Read More &rarr;</a>
+          <a style="color: green;"  href="{% url 'post_detail' BlogPost.summary  %}" class="btn btn-primary">Read More &rarr;</a>  
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+   
+  </div>
+</div>
+{%endblock%}
